@@ -1,0 +1,9 @@
+---
+- name: "Install & Configure SMS Gateway - Jasmin -"
+  hosts: jasmin
+  gather_facts: false
+  become: true
+  roles:
+    - "jasmin-role"
+
+#ansible-playbook -i hosts setup.yml  --ask-become-pas

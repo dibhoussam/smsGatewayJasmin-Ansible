@@ -1,0 +1,29 @@
+---
+- name : "Install Packages"
+  yum:
+    name:
+      - python-devel.x86_64
+      - libffi-devel.x86_64
+    state: present
+  tags:
+    - "jasmin"
+
+- name: "Install JAsmin repo"
+  shell: wget -qO - http://bit.ly/jasmin-rpm-repo | bash
+  tags:
+    - "jasmin"
+
+- name: "Install python-jasmin"
+  shell: yum install -y python-jasmin
+  tags:
+    - "jasmin"
+
+- name: "enable redis"
+  shell: systemctl enable jasmind
+  tags:
+    - "jasmin"
+
+- name: "start redis"
+  shell: systemctl start jasmind
+  tags:
+    - "jasmin"

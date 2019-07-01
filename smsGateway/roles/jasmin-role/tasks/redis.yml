@@ -1,0 +1,44 @@
+- name: "redis gpg key"
+  shell: rpm --import https://packagecloud.io/redis/redis-stable/gpgkey
+  tags:
+    - "redis"
+
+- name : "Install Packages"
+  yum:
+    name:
+      - yum-utils
+      - pygpgme
+    state: present
+  tags :
+    - "redis"
+
+- name: "repo redis rpm"
+  template:
+    src: redis_redis-stable.repo.j2
+    dest: /etc/yum.repos.d/redis_redis-stable.repo
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
+  tags :
+    - "redis"
+
+
+- name: "Install redis"
+  shell: yum -q makecache -y --disablerepo='*' --enablerepo='redis_redis-stable'
+  tags:
+    - "redis"
+
+- name: "Install redis"
+  shell: yum install -y redis
+  tags:
+    - "redis"
+
+- name: "enable redis"
+  shell: systemctl enable --now redis
+  tags:
+    - "redis"
+
+- name: "start redis"
+  shell: systemctl start --now redis
+  tags:
+    - "redis"

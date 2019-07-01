@@ -1,0 +1,25 @@
+---
+- name: "Update Packages [CentOS]"
+  include_tasks: "update-server.yml"
+  tags:
+    - update-server
+
+- name : "Prerequisites & Dependencies"
+  include_tasks: prerequisites.yml
+  tags :
+    - "prerequisites-jasmin"
+
+- name : "RabbitMQ"
+  include_tasks: rabbitmq.yml
+  tags :
+    - "rabbitmq"
+
+- name : "redis"
+  include_tasks: redis.yml
+  tags :
+    - "redis"
+
+- name: "Jasmin"
+  include_tasks: jasmin.yml
+  tags:
+    - "jasmin"

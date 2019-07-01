@@ -1,0 +1,24 @@
+- name: "Get RabbitMQ rpm"
+  shell: wget https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.7.15/rabbitmq-server-3.7.15-1.el7.noarch.rpm
+  tags:
+    - "rabbitmq"
+
+- name: "RabbitMQ gpg key"
+  shell: rpm --import https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey
+  tags:
+    - "rabbitmq"
+
+- name: "Install RabbitMQ"
+  shell: rpm -i rabbitmq-server-3.7.15-1.el7.noarch.rpm
+  tags:
+    - "rabbitmq"
+
+- name: "enable rabbitmq"
+  shell: systemctl enable rabbitmq-server
+  tags:
+    - "rabbitmq"
+
+- name: "start rabbitmq"
+  shell: systemctl start rabbitmq-server
+  tags:
+    - "rabbitmq"

@@ -1,0 +1,36 @@
+---
+#Jasmin requires Python 2.7 or newer (but not Python 3) with a functioning pip module.
+
+- name: "Get pip [CentOS]"
+  shell: curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
+  tags :
+    - "prerequisites-jasmin"
+
+- name: "repo erlang rpm"
+  template:
+    src: rabbitmq_erlang.repo.j2
+    dest: /etc/yum.repos.d/rabbitmq_erlang.repo
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
+  tags :
+    - "prerequisites-jasmin"
+
+- name : "Install Packages"
+  yum:
+    name:
+      - epel-release
+      - wget
+      - socat.x86_64
+      - logrotate
+    state: present
+  tags :
+    - "prerequisites-jasmin"
+
+- name : "Install erlang"
+  yum:
+    name:
+      - erlang
+    state: present
+  tags :
+    - "prerequisites-jasmin"
